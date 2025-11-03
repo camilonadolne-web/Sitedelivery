@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ouro Verde - Produtos Orgânicos</title>
+    <style>
+        :root {
+            --ouro-verde: #70a60f;
+            --ouro-verde-dark: #5a850c;
+            --ouro-verde-light: #e8f5e8;
+            --ouro-text: #1a3311;
+            --ouro-white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--ouro-verde-light);
+            color: var(--ouro-text);
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--ouro-verde) 0%, var(--ouro-verde-dark) 100%);
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo-section {
+            text-align: center;
+            color: white;
+        }
+        
+        .logo-main {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        
+        .logo-subtitle {
+            font-style: italic;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s;
+        }
+        
+        .nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        
+        .btn {
+            display: inline-block;
+            background: var(--ouro-verde);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background: var(--ouro-verde-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 40px 0;
+        }
+        
+        .category-btn {
+            background: white;
+            border: 2px solid var(--ouro-verde);
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .category-btn.active, .category-btn:hover {
+            background: var(--ouro-verde);
+            color: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: var(--ouro-verde-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--ouro-text);
+        }
+        
+        .product-origin {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--ouro-verde);
+            margin-bottom: 15px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .quantity-btn {
+            background: var(--ouro-verde-light);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.3s;
+            z-index: 1000;
+        }
+        
+        .cart-sidebar.open {
+            right: 0;
+        }
+        
+        .cart-icon {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--ouro-verde);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff6b6b;
+            color: white;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <h1 class="logo-main">OURO VERDE</h1>
+                <p class="logo-subtitle">Produtos Orgânicos Premium</p>
+            </div>
+            <nav class="nav">
+                <a href="#home">Início</a>
+                <a href="#produtos">Produtos</a>
+                <a href="#kits">Kits Orgânicos</a>
+                <a href="#assinaturas">Assinaturas</a>
+                <a href="#sobre">Sobre</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Natureza em Cada Alimento</h1>
+            <p>Produtos orgânicos frescos direto para sua casa</p>
+            <a href="#produtos" class="btn">Ver Produtos</a>
+        </div>
+    </section>
+
+    <!-- Produtos Section -->
+    <section id="produtos" style="padding: 80px 0;">
+        <div class="container">
+            <h2 style="text-align: center; font-size: 2.5rem; margin-bottom: 40px; color: var(--ouro-text);">
+                NOSSOS PRODUTOS
+            </h2>
+            
+            <div class="categories">
+                <button class="category-btn active" data-category="all">Todos</button>
+                <button class="category-btn" data-category="hortalicas">Hortaliças</button>
+                <button class="category-btn" data-category="frutas">Frutas</button>
+                <button class="category-btn" data-category="temperos">Temperos</button>
+            </div>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Produtos carregados via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Carrinho Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div style="padding: 20px;">
+            <h3>Seu Carrinho</h3>
+            <div id="cartItems"></div>
+            <div id="cartTotal" style="font-size: 1.2rem; font-weight: bold; margin: 20px 0;"></div>
+            <button class="btn" style="width: 100%;">Finalizar Pedido</button>
+        </div>
+    </div>
+
+    <div class="cart-icon" id="cartIcon">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+    </div>
+
+    <script>
+        // Dados dos produtos
+        const produtos = [
+            {
+                id: 1,
+                nome: "Tomate Cereja Orgânico",
+                categoria: "hortalicas",
+                tipoVenda: "peso",
+                unidade: "kg",
+                preco: 18.90,
+                imagem: "🍅",
+                origem: "Fazenda Verde - ORGÂNICO",
+                estoque: 15.5
+            },
+            {
+                id: 2,
+                nome: "Alface Crespa Orgânica",
+                categoria: "hortalicas", 
+                tipoVenda: "unidade",
+                preco: 3.50,
+                imagem: "🥬",
+                origem: "Sítio Harmonia - ORGÂNICO",
+                estoque: 42
+            },
+            {
+                id: 3,
+                nome: "Maçã Fuji Orgânica",
+                categoria: "frutas",
+                tipoVenda: "peso", 
+                unidade: "kg",
+                preco: 12.90,
+                imagem: "🍎",
+                origem: "Pomar Natural - ORGÂNICO",
+                estoque: 8.2
+            },
+            {
+                id: 4,
+                nome: "Banana Prata Orgânica",
+                categoria: "frutas",
+                tipoVenda: "peso",
+                unidade: "kg", 
+                preco: 9.90,
+                imagem: "🍌",
+                origem: "Fazenda Solar - ORGÂNICO",
+                estoque: 12.7
+            },
+            {
+                id: 5,
+                nome: "Manjericão Fresco",
+                categoria: "temperos",
+                tipoVenda: "unidade",
+                preco: 4.50,
+                imagem: "🌿",
+                origem: "Horta Urbana - ORGÂNICO", 
+                estoque: 28
+            },
+            {
+                id: 6,
+                nome: "Cenoura Baby Orgânica",
+                categoria: "hortalicas",
+                tipoVenda: "peso",
+                unidade: "kg",
+                preco: 8.90,
+                imagem: "🥕",
+                origem: "Fazenda Verde - ORGÂNICO",
+                estoque: 6.8
+            }
+        ];
+
+        // Estado do carrinho
+        let carrinho = [];
+        let categoriaAtual = 'all';
+
+        // Elementos DOM
+        const productsGrid = document.getElementById('productsGrid');
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartIcon = document.getElementById('cartIcon');
+        const cartItems = document.getElementById('cartItems');
+        const cartTotal = document.getElementById('cartTotal');
+        const cartCount = document.getElementById('cartCount');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProdutos();
+            setupEventListeners();
+        });
+
+        // Renderizar produtos
+        function renderProdutos() {
+            productsGrid.innerHTML = '';
+            
+            const produtosFiltrados = categoriaAtual === 'all' 
+                ? produtos 
+                : produtos.filter(p => p.categoria === categoriaAtual);
+            
+            produtosFiltrados.forEach(produto => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        ${produto.imagem}
+                    </div>
+                    <div class="product-content">
+                        <h3 class="product-title">${produto.nome}</h3>
+                        <p class="product-origin">${produto.origem}</p>
+                        <div class="product-price">
+                            R$ ${produto.preco.toFixed(2)}
+                            ${produto.tipoVenda === 'peso' ? `/${produto.unidade}` : '/unidade'}
+                        </div>
+                        <div class="quantity-selector">
+                            <button class="quantity-btn minus" onclick="updateQuantity(${produto.id}, -0.1)">-</button>
+                            <span id="quantity-${produto.id}">0${produto.tipoVenda === 'peso' ? ' kg' : ''}</span>
+                            <button class="quantity-btn plus" onclick="updateQuantity(${produto.id}, 0.1)">+</button>
+                        </div>
+                        <button class="btn" onclick="adicionarAoCarrinho(${produto.id})" style="width: 100%;">
+                            Adicionar ao Carrinho
+                        </button>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        // Atualizar quantidade
+        function updateQuantity(produtoId, change) {
+            // Implementação simplificada para demonstração
+            const quantityElement = document.getElementById(`quantity-${produtoId}`);
+            let current = parseFloat(quantityElement.textContent) || 0;
+            current = Math.max(0, current + change);
+            quantityElement.textContent = current.toFixed(1) + ' kg';
+        }
+
+        // Adicionar ao carrinho
+        function adicionarAoCarrinho(produtoId) {
+            const produto = produtos.find(p => p.id === produtoId);
+            const quantityElement = document.getElementById(`quantity-${produtoId}`);
+            const quantidade = parseFloat(quantityElement.textContent) || 1;
+            
+            if (quantidade <= 0) {
+                alert('Selecione uma quantidade válida!');
+                return;
+            }
+
+            const itemExistente = carrinho.find(item => item.produto.id === produtoId);
+            
+            if (itemExistente) {
+                itemExistente.quantidade += quantidade;
+            } else {
+                carrinho.push({
+                    produto: produto,
+                    quantidade: quantidade
+                });
+            }
+
+            atualizarCarrinho();
+            abrirCarrinho();
+            
+            // Reset quantidade
+            quantityElement.textContent = '0' + (produto.tipoVenda === 'peso' ? ' kg' : '');
+        }
+
+        // Atualizar carrinho
+        function atualizarCarrinho() {
+            // Atualizar contador
+            const totalItens = carrinho.reduce((total, item) => total + item.quantidade, 0);
+            cartCount.textContent = totalItens;
+            
+            // Atualizar itens do carrinho
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            carrinho.forEach(item => {
+                const itemTotal = item.produto.preco * item.quantidade;
+                total += itemTotal;
+                
+                const cartItem = document.createElement('div');
+                cartItem.style.padding = '10px 0';
+                cartItem.style.borderBottom = '1px solid #eee';
+                cartItem.innerHTML = `
+                    <strong>${item.produto.nome}</strong><br>
+                    ${item.quantidade} ${item.produto.tipoVenda === 'peso' ? 'kg' : 'un'}
+                    - R$ ${itemTotal.toFixed(2)}
+                    <button onclick="removerDoCarrinho(${item.produto.id})" style="float: right; background: #ff6b6b; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;">
+                        Remover
+                    </button>
+                `;
+                cartItems.appendChild(cartItem);
+            });
+            
+            cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
+        }
+
+        // Remover do carrinho
+        function removerDoCarrinho(produtoId) {
+            carrinho = carrinho.filter(item => item.produto.id !== produtoId);
+            atualizarCarrinho();
+        }
+
+        // Abrir/fechar carrinho
+        function abrirCarrinho() {
+            cartSidebar.classList.add('open');
+        }
+
+        function fecharCarrinho() {
+            cartSidebar.classList.remove('open');
+        }
+
+        // Configurar event listeners
+        function setupEventListeners() {
+            cartIcon.addEventListener('click', abrirCarrinho);
+            
+            // Fechar carrinho ao clicar fora
+            document.addEventListener('click', (e) => {
+                if (!cartSidebar.contains(e.target) && !cartIcon.contains(e.target)) {
+                    fecharCarrinho();
+                }
+            });
+
+            // Filtros de categoria
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    categoriaAtual = btn.getAttribute('data-category');
+                    renderProdutos();
+                });
+            });
+        }
+    </script>
+</body>
+</html>

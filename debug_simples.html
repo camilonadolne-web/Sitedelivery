@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Simples</title>
+</head>
+<body>
+    <h1>Debug da API</h1>
+    <button onclick="teste1()">Teste 1 - GET</button>
+    <button onclick="teste2()">Teste 2 - POST</button>
+    <div id="resultado" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; white-space: pre-wrap;"></div>
+
+    <script>
+        const resultado = document.getElementById('resultado');
+        
+        async function teste1() {
+            resultado.textContent = 'Testando GET...';
+            try {
+                const response = await fetch('backend/api/pedidos.php');
+                const data = await response.json();
+                resultado.textContent = '✅ GET Funcionou!\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultado.textContent = '❌ GET Falhou:\n' + error.message;
+            }
+        }
+
+        async function teste2() {
+            resultado.textContent = 'Testando POST...';
+            const pedidoTeste = {
+                cliente_nome: "Teste Debug",
+                cliente_email: "debug@test.com",
+                cliente_telefone: "(11) 9999-9999",
+                endereco_entrega: "Rua Debug, 123",
+                total: 25.00,
+                forma_pagamento: "cartao",
+                observacoes: "Teste de debug",
+                itens: [{ produto_id: 1, quantidade: 1, preco_unitario: 25.00 }]
+            };
+
+            try {
+                const response = await fetch('backend/api/pedidos.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(pedidoTeste)
+                });
+                const data = await response.json();
+                resultado.textContent = '✅ POST Funcionou!\n' + JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultado.textContent = '❌ POST Falhou:\n' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>
